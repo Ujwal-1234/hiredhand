@@ -45,9 +45,7 @@ export default function Message() {
           </a>
           <a className=' hover:cursor-pointer block rounded-full my-5 font-bold bg-opacity-60 w-16 h-16 bg-white'>
             <img src='#' alt='loading' />
-          </a>
-          
-          
+          </a>          
         </p>
       </div>
     </div>

@@ -6,11 +6,16 @@ import Notify from './component/Notify';
 import { FiSearch } from "react-icons/fi";
 
 function App() {
+  const [auth,setAuth] = useState(true)
   const [notify, setNotify] = useState(false)
+  const [newuser, setUser] = useState(false)
   const [message, setMessage] = useState(false)
   const _notify = ()=>{
     setNotify(true)
     setMessage(false)
+  }
+  const setLogin=(data)=>{
+    setUser(data)
   }
   const _message = ()=>{
     setNotify(false)
@@ -21,6 +26,9 @@ function App() {
     setMessage(false)
   }
   return (
+    <>
+    {
+    auth?
     <div className="App bg-red-50">
       <header className=" bg-slate-900 relative text-slate-50">
         <div className=' absolute bg-slate-900 text-white left-0 inline  w-1/4 '> 
@@ -43,6 +51,28 @@ function App() {
       {notify?<Notify />:<></>}
       {message?<Message />:<></>}
     </div>
+    :
+    <div className=' bg-red-200 min-h-screen flex items-center justify-center text-red-500'>
+      <div className='bg-slate-900 bg-opacity-20 p-20 rounded-xl'>
+        {newuser?<form>
+          <input type={"text"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='User Id' />
+          <input type={"password"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='Password' />
+          <button type={"submit"} className='block mt-5 mb-5 text-center w-full hover:border-b-0 hover:border-t-8 hover:cursor-pointer active:text-white border-red-500 rounded-3xl p-2 text-2xl border-b-8'>LOGIN</button>
+          <p className='text-center text-slate-900'>New to us ?<a className=' underline text-red-500 hover:cursor-pointer' onClick={()=>setLogin(false)}>create one</a> </p> 
+        </form>:
+        <form>
+          <input type={"text"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='Full Name' />
+          <input type={"text"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='Email Id' />
+          <input type={"text"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='Phone' />
+          <input type={"password"} className='block bg-red-500 bg-opacity-0 border-b-2 border-white  mt-5 mb-5 text-2xl p-2 w-full rounded-2xl text-center' placeholder='Password' />
+          <input type={"submit"} className='block mt-5 mb-5 text-center w-full hover:border-b-0 hover:border-t-8 hover:cursor-pointer active:text-white border-red-500 rounded-3xl p-2 text-2xl border-b-8' value={"REGISTER"}></input>
+          <p className='text-center text-slate-900'>Already a member ?<a className=' underline text-red-500 hover:cursor-pointer' onClick={()=>setLogin(true)}>login</a> </p> 
+        </form>}
+      </div>
+    </div>
+    }
+    </>
   );
 }
+
 export default App;
