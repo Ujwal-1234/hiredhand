@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/github.io/hiredhand/static/css/main.5e31acea.css",
+    "main.js": "/github.io/hiredhand/static/js/main.0913c359.js",
+    "index.html": "/github.io/hiredhand/index.html",
+    "main.5e31acea.css.map": "/github.io/hiredhand/static/css/main.5e31acea.css.map",
+    "main.0913c359.js.map": "/github.io/hiredhand/static/js/main.0913c359.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5e31acea.css",
+    "static/js/main.0913c359.js"
+  ]
+}
