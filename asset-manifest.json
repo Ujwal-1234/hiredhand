@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hiredhand/static/css/main.ea2aad47.css",
-    "main.js": "/hiredhand/static/js/main.b2aa09ff.js",
+    "main.css": "/hiredhand/static/css/main.d12c2205.css",
+    "main.js": "/hiredhand/static/js/main.564b6b24.js",
     "index.html": "/hiredhand/index.html",
-    "main.ea2aad47.css.map": "/hiredhand/static/css/main.ea2aad47.css.map",
-    "main.b2aa09ff.js.map": "/hiredhand/static/js/main.b2aa09ff.js.map"
+    "main.d12c2205.css.map": "/hiredhand/static/css/main.d12c2205.css.map",
+    "main.564b6b24.js.map": "/hiredhand/static/js/main.564b6b24.js.map"
   },
   "entrypoints": [
-    "static/css/main.ea2aad47.css",
-    "static/js/main.b2aa09ff.js"
+    "static/css/main.d12c2205.css",
+    "static/js/main.564b6b24.js"
   ]
 }
