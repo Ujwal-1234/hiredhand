@@ -2,7 +2,7 @@ import React from 'react'
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 export default function Message() {
   return (
-    <div className='absolute flex right-0 bg-red-500 w-full lg:w-auto min-h-screen top-0'>
+    <div className='fixed flex right-0 bg-red-500 w-full lg:w-auto min-h-screen top-0'>
       <div className='bg-white bg-opacity-40 p-2 h-96 ml-2 mt-2 rounded-lg w-96 overflow-auto scrollbar-hidden max-h-96'> 
         <p className=' my-2 text-left p-2 rounded-lg'><a className='bg-white p-2 rounded-l-2xl'>Incoming message</a></p>
         <p className=' my-2 text-right p-2 rounded-lg'><a className='bg-white p-2 rounded-r-2xl'>Outgoing message</a></p>
