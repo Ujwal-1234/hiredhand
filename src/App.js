@@ -39,7 +39,6 @@ function App() {
   const l_user = useRef();
   const l_pass = useRef();
 
-
   // useEffect(() => {
   //   fetch(`http://localhost/hiredhand/server/verified.php?email=`+localStorage.getItem('email'))
   //    .then((response) => response.text())
@@ -57,6 +56,14 @@ function App() {
 
           // console.log(localStorage.getItem('sessionid'))
           console.log(url)
+          // console.log(sessionStorage.getItem('no_data'))
+          // console.log(sessionStorage.getItem('f_no_data'))
+          // if(sessionStorage.getItem('no_data')!=sessionStorage.getItem('f_no_data'))
+          // {
+          //   console.log(sessionStorage.getItem('f_no_data'))
+          //   sessionStorage.setItem('no_data', sessionStorage.getItem('f_no_data'))
+          //   console.log(sessionStorage.getItem('no_data'))
+          // }
           fetch(url)
            .then((response) => response.json())
            .then((actualData) => {
