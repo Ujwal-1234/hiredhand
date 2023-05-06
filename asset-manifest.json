@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/hiredhand/static/css/main.430da49e.css",
-    "main.js": "/hiredhand/static/js/main.26a255de.js",
+    "main.js": "/hiredhand/static/js/main.cf89cb78.js",
     "index.html": "/hiredhand/index.html",
     "main.430da49e.css.map": "/hiredhand/static/css/main.430da49e.css.map",
-    "main.26a255de.js.map": "/hiredhand/static/js/main.26a255de.js.map"
+    "main.cf89cb78.js.map": "/hiredhand/static/js/main.cf89cb78.js.map"
   },
   "entrypoints": [
     "static/css/main.430da49e.css",
-    "static/js/main.26a255de.js"
+    "static/js/main.cf89cb78.js"
   ]
 }
