@@ -40,6 +40,7 @@ export default function NewWork() {
                     <option value={'Teacher'}>Teacher</option>
                     <option value={'Expert'}>Expert</option>
                 </select>
+                <textarea type={"text"}className="block bg-red-500 border w-full bg-opacity-0 border-b-2 border-slate-900  mt-5 mb-5 p-2 rounded-2xl text-center" placeholder="Skills" />
                 <input type={"submit"} className='inlnie-block mt-5 mb-5 text-center hover:border-b-0 hover:border-t-2 border-red-500 hover:cursor-pointer active:text-white border rounded-3xl p-2 pl-5 pr-5 border-b-2' value={"cancel"} />
                 <input type={"button"} onClick={create_project} className='inline-block ml-5 mt-5 mb-5 text-center hover:border-b-0 hover:border-t-2 border-green-500 hover:cursor-pointer active:text-white border rounded-3xl p-2 pl-5 pr-5 border-b-2' value={"submit"}/>
             </form>

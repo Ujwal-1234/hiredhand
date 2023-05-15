@@ -4,14 +4,20 @@ import Feed from './component/Feed';
 import Message from './component/Message';
 import Notify from './component/Notify';
 import NewWork from './component/NewWork';
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser, FiX } from "react-icons/fi";
 import { BsFillCpuFill } from "react-icons/bs";
 import { FiBell } from "react-icons/fi";
 import { FiMessageSquare } from "react-icons/fi";
 import { FiHome } from "react-icons/fi";
 import Iniprojects from './component/Iniprojects';
 import Otp from './component/Otp';
-
+import Pro from './component/Pro';
+import NotFound from './component/NotFound';
+import { Route, Routes } from 'react-router-dom';
+import OpenProject from './component/OpenProject';
+import Post from './component/Post';
+import Community from './component/sub-components/Community';
+import Selection from './component/sub-components/Selection';
 
 function App() {
   // sessionStorage.setItem('sessionid', "12345")
@@ -19,8 +25,8 @@ function App() {
   var verifybool=true
   if(localStorage.getItem('sessionid')!=null)
   authbool=true
-  console.log(authbool)
-  console.log(localStorage.getItem('sessionid'))
+  // console.log(authbool)
+  // console.log(localStorage.getItem('sessionid'))
   const [_otp, setotp] = useState(verifybool)
   const [auth, setAuth] = useState(authbool)
   const [notify, setNotify] = useState(false)
@@ -28,6 +34,7 @@ function App() {
   const [message, setMessage] = useState(false)
   const [newWork, setNewWork] = useState(false)
   const [initiated, setinitiated] = useState(true)
+  const [profile, setProfile]=useState(true)
   const [view_iniprojects, set_view_iniprojects] = useState(false)
 
 
@@ -47,23 +54,18 @@ function App() {
   //     console.log(err.message);
   //    });
   //  }, []);
+  setInterval(() => {
+    if(sessionStorage.getItem('profile')==true){
+      setProfile(true)
+      console.log(sessionStorage.getItem('profile'))
+    }
+  }, 100);
 
     useEffect(() => {
-
       const getsession = setInterval(() => {
         if(localStorage.getItem('sessionid')){
           let url = 'http://localhost/hiredhand/server/onload_session_verify.php?sessionid='+localStorage.getItem('sessionid')
-
-          // console.log(localStorage.getItem('sessionid'))
           console.log(url)
-          // console.log(sessionStorage.getItem('no_data'))
-          // console.log(sessionStorage.getItem('f_no_data'))
-          // if(sessionStorage.getItem('no_data')!=sessionStorage.getItem('f_no_data'))
-          // {
-          //   console.log(sessionStorage.getItem('f_no_data'))
-          //   sessionStorage.setItem('no_data', sessionStorage.getItem('f_no_data'))
-          //   console.log(sessionStorage.getItem('no_data'))
-          // }
           fetch(url)
            .then((response) => response.json())
            .then((actualData) => {
@@ -155,6 +157,9 @@ function App() {
     setMessage(false)
     set_view_iniprojects(false)
   }
+  const _profile=()=>{
+    setProfile(true)
+  }
   return (
     <>
     {
@@ -170,6 +175,8 @@ function App() {
             <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_home}><FiHome className='inline m-3'/><span className='text-xs'>Home</span></a>
             <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_notify}><FiBell className='inline m-3'/><span className='text-xs'>Notification</span></a>
             <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_message}><FiMessageSquare className='inline m-3'/><span className='text-xs'>Messages</span></a>
+            <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' href='/pro'><FiUser className='inline m-3'/><span className='text-xs'>Profile</span></a>
+
           </p>
           <p>
             <input type={"text"} className=' lg:w-3/4 mb-2 inline rounded-full text-black p-2 text-center' placeholder='Search...'></input><FiSearch className='hover:cursor-pointer active:text-2xl inline text-4xl ml-4' />
@@ -183,7 +190,16 @@ function App() {
           {auth?<></>:<a className=' hover:text-2xl cursor-pointer pl-2 pr-2'><span className='bg-slate-600 p-2 rounded-l-full'>login</span><span className='bg-slate-50 p-2 rounded-r-full text-slate-900'>Register</span></a>}
         </div>
       </header>
-      {<Feed />}
+      {/* {<Feed />} */}
+      <Routes>
+        <Route path='pro' element={<Pro/>} />
+        <Route path='project/pro' element={<><Pro/><Selection/></>} />
+        <Route path='post' element={<Post/>} />
+        <Route path='project' element={<OpenProject/>}/>
+        <Route path='/' element={<Feed/>} />
+        <Route path='*' element={<NotFound/>} />
+      </Routes>
+      
       {
       initiated?
       <>
@@ -192,6 +208,7 @@ function App() {
       </div>
       </>:<></>
       }
+      
       {
         view_iniprojects?
         <>
@@ -211,12 +228,14 @@ function App() {
         <div onClick={_home} className='fixed z-50 lg:hidden bottom-0 border bordre-white bg-black right-0 mb-2 mr-2 rounded-full active:text-2xl text-white flex justify-center items-center text-3xl'><FiHome className=' m-5'/></div>
       </>:<></>}
       {newWork?<NewWork />:<></>}
+      
+
+      {/* {profile?<><a href='/' onClick={()=>{setProfile(false)}} className='absolute z-10 right-20 hover:cursor-pointer bg-white rounded-full p-2 hover:bg-red-600 hover:text-white active:text-2xl top-5 text-4xl'><FiX /></a><Pro /></>:<></>} */}
     </div>:
     <>
     <Otp />
     </>
     }
-    
     </>
     
     :
@@ -239,6 +258,7 @@ function App() {
       </div>
     </div>
     }
+    
     </>
   );
 }

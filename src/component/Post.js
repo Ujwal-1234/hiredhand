@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FiUsers } from "react-icons/fi";
 // import setopenPost from "../App"
 
@@ -7,6 +7,26 @@ export default function Post() {
   const _closepost = ()=>{
     window.location.reload(false)
   }
+
+  useEffect(()=>{
+      let url = 'http://localhost/hiredhand/server/='+localStorage.getItem('sessionid')
+      console.log(url)
+      fetch(url)
+        .then((response) => response.json())
+        .then((actualData) => {
+        // console.log(actualData)
+        // console.log(actualData.result)
+        if(actualData.result !='success' && actualData.verified==false)
+        {
+          localStorage.removeItem('sessionid')
+          window.location.reload()
+        }
+      })
+        .catch((err) => {
+        console.log(err.message);
+      });
+  })
+
   return (
     <div className='bg-black fixed lg:flex items-center justify-center min-h-screen max-h-screen w-full top-0 bg-opacity-40'>
         <div className='bg-white border lg:w-1/4 h-1/2 p-20'>
@@ -45,8 +65,8 @@ export default function Post() {
                 </span>
             </p>
             <p className='flex mt-5 justify-between '>
-              <button className=' border hover:bg-slate-700 hover:text-white border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Join</button>
-              <button className=' border hover:bg-red-700 hover:text-white border-red-700 rounded-2xl p-2 pl-9 pr-9' onClick={_closepost}>Ignore</button>
+              <a className=' border hover:bg-slate-700 hover:text-white hover:cursor-pointer border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Join</a>
+              <a href='/' className=' border hover:bg-red-700 hover:text-white border-red-700 rounded-2xl p-2 pl-9 pr-9' onClick={_closepost}>Ignore</a>
             </p>
         </div>
     </div>
