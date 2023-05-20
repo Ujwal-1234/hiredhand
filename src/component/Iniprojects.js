@@ -13,7 +13,7 @@ export default function Iniprojects() {
       console.log(_inprojects[i])
       if(localStorage.getItem('email_id') == _inprojects[i]['initiated_by_email'])
       {
-        document.getElementById('project_list').innerHTML+="<p class='w-auto my-5 h-24 flex flex-wrap items-center justify-center rounded-xl bg-opacity-60 bg-white'><a href='/project' class='block w-full font-bold'>"+_inprojects[i]['project_title']+"</a><a class=' p-2 w-full'>"+_inprojects[i]['project_description'].slice(0, 17)+"...</a><a class=' sticky ml-2 text-sm text-center text-slate-600 block'><span className=' mr-5'><FiUsers class='inline-block'/>34</span> <span class='ml-5'> Requests : 10</span></a></p>"
+        document.getElementById('project_list').innerHTML+="<p class='w-auto my-5 h-24 flex flex-wrap items-center justify-center rounded-xl bg-opacity-60 bg-white'><a href='/project?pid="+_inprojects[i]['project_id']+"' class='block w-full font-bold'>"+_inprojects[i]['project_title']+"</a><a class=' p-2 w-full'>"+_inprojects[i]['project_description'].slice(0, 17)+"...</a><a class=' sticky ml-2 text-sm text-center text-slate-600 block'><span className=' mr-5'><FiUsers class='inline-block'/>34</span> <span class='ml-5'> Requests : 10</span></a></p>"
       }
     }
   }, [])

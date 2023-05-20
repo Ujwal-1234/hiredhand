@@ -7,66 +7,53 @@ export default function Post() {
   const _closepost = ()=>{
     window.location.reload(false)
   }
-
+  const queryParams = new URLSearchParams(window.location.search)
+  const pid = queryParams.get('pid')
   useEffect(()=>{
-      let url = 'http://localhost/hiredhand/server/='+localStorage.getItem('sessionid')
-      console.log(url)
-      fetch(url)
-        .then((response) => response.json())
-        .then((actualData) => {
-        // console.log(actualData)
-        // console.log(actualData.result)
-        if(actualData.result !='success' && actualData.verified==false)
-        {
-          localStorage.removeItem('sessionid')
-          window.location.reload()
-        }
-      })
-        .catch((err) => {
-        console.log(err.message);
-      });
-  })
-
+      console.log(pid)
+      let json_data = JSON.parse(sessionStorage.getItem('json_data_feed'))
+      console.log(json_data[pid])
+      document.getElementById('post_cat').innerText=json_data[pid]['project_category']
+      document.getElementById('post_title').innerText=json_data[pid]['project_title']
+      document.getElementById('post_initiated_by').innerText=json_data[pid]['initiated_by']
+      document.getElementById('post_description').innerText=json_data[pid]['project_description']
+  }, [])
+  const _join_project = ()=>{
+    console.log(localStorage.getItem('email_id'))
+    let url = 'http://localhost/hiredhand/server/joinproject.php?pid='+pid+'&email='+localStorage.getItem('email_id')
+    console.log(url)
+    fetch(url).then((response)=>response.text()).then((actualData)=>{
+      console.log(actualData)
+      if(actualData.result=='success')
+      {
+        console.log(actualData)
+      }
+    }).catch((err)=>{
+      console.log(err.message)
+    })
+  }
   return (
     <div className='bg-black fixed lg:flex items-center justify-center min-h-screen max-h-screen w-full top-0 bg-opacity-40'>
         <div className='bg-white border lg:w-1/4 h-1/2 p-20'>
             <div className='bg-slate-700 bg-opacity-20 p-5 rounded text-left flex justify-between items-center'>
-                <span className='font-bold text-2xl'>POST Title</span>
-                <a className=' w-20 h-20 block rounded-full lg:ml-5 text-white bg-black'>ICON post by</a>
+                <span id='post_cat' className='font-bold text-2xl'>Loading ...</span>
+                <a className=' w-20 h-20 block rounded-full lg:ml-5 text-white bg-black'>Loading ...</a>
             </div>
             <p className=' text-justify'>
-                <a className='font-bold block'>Work title / project Title</a>
-                <span className=' text-xs block'>Industry category IT/Design/ComputerScience</span>
-                <span className=' text-xs block'>skills required - programming/WEB/ML/AI/database</span>
-                <span className=' text-xs inline'><FiUsers className='inline' />12</span>
+                <a id='post_title' className='font-bold block'>Loading ...</a>
+                <span id='post_cat' className=' text-xs block'>Industry category Loading ...</span>
+                <span id='post_req_skills' className=' text-xs block'>skills required - Loading ...</span>
+                <span id='post_members' className=' text-xs inline'><FiUsers className='inline' />12</span>
             </p>
             <p className=' text-justify'>
-                <span className='font-bold'>posted by 1st person</span>
-                <span className=' max-h-96 overflow-auto scrollbar-hidden text-xs block text-slate-600'>
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Description data is a long text explaining the data of data here
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <span id='post_initiated_by' className='font-bold'>Loading ...</span>
+                <span id='post_description' className=' max-h-96 overflow-auto scrollbar-hidden text-xs block text-slate-600'>
+                    Loading ...
                 </span>
             </p>
             <p className='flex mt-5 justify-between '>
-              <a className=' border hover:bg-slate-700 hover:text-white hover:cursor-pointer border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Join</a>
-              <a href='/' className=' border hover:bg-red-700 hover:text-white border-red-700 rounded-2xl p-2 pl-9 pr-9' onClick={_closepost}>Ignore</a>
+              <a onClick={_join_project} className=' border hover:bg-slate-700 hover:text-white hover:cursor-pointer border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Join</a>
+              <a href='/' className=' border hover:bg-red-700 hover:text-white border-red-700 rounded-2xl p-2 pl-9 pr-9' onClick={_closepost}>Cancel</a>
             </p>
         </div>
     </div>
