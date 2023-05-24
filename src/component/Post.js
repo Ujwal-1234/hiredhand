@@ -22,11 +22,11 @@ export default function Post() {
     console.log(localStorage.getItem('email_id'))
     let url = 'http://localhost/hiredhand/server/joinproject.php?pid='+pid+'&email='+localStorage.getItem('email_id')
     console.log(url)
-    fetch(url).then((response)=>response.text()).then((actualData)=>{
+    fetch(url).then((response)=>response.json()).then((actualData)=>{
       console.log(actualData)
       if(actualData.result=='success')
       {
-        console.log(actualData)
+        window.location='/'
       }
     }).catch((err)=>{
       console.log(err.message)

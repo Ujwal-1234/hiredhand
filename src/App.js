@@ -15,6 +15,7 @@ import Pro from './component/Pro';
 import NotFound from './component/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import OpenProject from './component/OpenProject';
+import ProjectData from './component/ProjectData';
 import Post from './component/Post';
 import Community from './component/sub-components/Community';
 import Selection from './component/sub-components/Selection';
@@ -170,11 +171,11 @@ function App() {
       _otp?<div className="App lg:flex lg:flex-wrap w-full bg-red-50">
       <header className=" min-h-screen lg:block bg-slate-900  text-slate-50">
         <div className=' absolute min-h-screen flex justify-center items-center flex-wrap bg-slate-900 text-white left-0 w-full lg:w-1/4 '> 
-          <p className='font-bold border-b-2 p-2 lg:w-3/4 rounded-2xl text-2xl top-1'>hired-Hand</p>
+          <p className='font-bold border-b-2 p-2 lg:w-3/4 rounded-2xl text-2xl top-1'>Hired-Hand</p>
           <p className=' m-5'>
             <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_home}><FiHome className='inline m-3'/><span className='text-xs'>Home</span></a>
-            <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_notify}><FiBell className='inline m-3'/><span className='text-xs'>Notification</span></a>
-            <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_message}><FiMessageSquare className='inline m-3'/><span className='text-xs'>Messages</span></a>
+            {/* <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_notify}><FiBell className='inline m-3'/><span className='text-xs'>Notification</span></a> */}
+            {/* <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' onClick={_message}><FiMessageSquare className='inline m-3'/><span className='text-xs'>Messages</span></a> */}
             <a className=' hover:border hover:rounded-2xl hover:p-2 cursor-pointer pl-2 pr-2' href='/pro'><FiUser className='inline m-3'/><span className='text-xs'>Profile</span></a>
 
           </p>
@@ -190,25 +191,22 @@ function App() {
           {auth?<></>:<a className=' hover:text-2xl cursor-pointer pl-2 pr-2'><span className='bg-slate-600 p-2 rounded-l-full'>login</span><span className='bg-slate-50 p-2 rounded-r-full text-slate-900'>Register</span></a>}
         </div>
       </header>
-      {/* {<Feed />} */}
       <Routes>
         <Route path='pro' element={<Pro/>} />
         <Route path='project/pro' element={<><Pro/><Selection/></>} />
         <Route path='post' element={<Post/>} />
         <Route path='project' element={<OpenProject/>}/>
+        <Route path='openproject' element={<ProjectData/>}/>
         <Route path='/' element={<Feed/>} />
         <Route path='*' element={<NotFound/>} />
       </Routes>
-      
-      {
-      initiated?
+      {initiated?
       <>
       <div className='fixed right-5 bottom-5'>
         <button onClick={()=>set_view_iniprojects(true)} className='hover:text-2xl text-white rounded-full bg-slate-500 shadow-black shadow-lg cursor-pointer p-2'>Initiated Projects</button>
       </div>
       </>:<></>
       }
-      
       {
         view_iniprojects?
         <>
@@ -228,9 +226,6 @@ function App() {
         <div onClick={_home} className='fixed z-50 lg:hidden bottom-0 border bordre-white bg-black right-0 mb-2 mr-2 rounded-full active:text-2xl text-white flex justify-center items-center text-3xl'><FiHome className=' m-5'/></div>
       </>:<></>}
       {newWork?<NewWork />:<></>}
-      
-
-      {/* {profile?<><a href='/' onClick={()=>{setProfile(false)}} className='absolute z-10 right-20 hover:cursor-pointer bg-white rounded-full p-2 hover:bg-red-600 hover:text-white active:text-2xl top-5 text-4xl'><FiX /></a><Pro /></>:<></>} */}
     </div>:
     <>
     <Otp />

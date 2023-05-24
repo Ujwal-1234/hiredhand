@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { FiUsers, FiHome, FiX } from 'react-icons/fi'
-import { Link, Router } from 'react-router-dom'
-
 
 export default function OpenProject() {
-     const queryParams = new URLSearchParams(window.location.search)
-        const pid = queryParams.get('pid')
+    const queryParams = new URLSearchParams(window.location.search)
+    const pid = queryParams.get('pid')
         console.log(pid)
     const [comm, setComm]=useState(queryParams.get('type')=='c'?true:false)
     const [header, setHeader]=useState(new URLSearchParams(window.location.search))
@@ -24,8 +22,6 @@ export default function OpenProject() {
         request_arr=json_data[pid]['requested_users'].split(",")
         community_arr=json_data[pid]['community_members'].split(",")
         
-        console.log(community_arr)
-        console.log(request_arr)
         document.getElementById('post_cat').innerText=json_data[pid]['project_category']
 
         if(comm)
@@ -35,29 +31,26 @@ export default function OpenProject() {
             }else{
                 for(let i=0; i<community_arr.length; i++)
                 {
-                    console.log(community_arr)
-                    document.getElementById('u_c').innerHTML="<a class=' block bg-red-600 bg-opacity-20 mt-2 p-2 rounded-md'>"+community_arr[i].slice(0, 15)+"...</a>"
+                    if(community_arr[i]!="")
+                    {
+                        console.log(community_arr)
+                        document.getElementById('u_c').innerHTML+="<a class=' block bg-red-600 bg-opacity-20 mt-2 p-2 rounded-md'>"+community_arr[i].slice(0, 15)+"...</a>"
+                    }
                 }
-            }
-            
+            } 
         }else{
             if((request_arr.length==1 && request_arr[0]=='') || request_arr[0]==''){
                 document.getElementById('u_request').innerHTML='No Data Found'
             }else{
                 for(let i=0; i<request_arr.length; i++)
                 {
-                    document.getElementById('u_request').innerHTML+="<p class=' block bg-red-600 bg-opacity-20 mt-2 p-2 rounded-md'><a href='/project/pro' class='hover:cursor-pointer text-left w-1/2 inline-block'>"+request_arr[i].slice(0, 15)+"..."+"</a><a class='text-right w-1/2 inline-block'><a href='?pid="+pid+"&session="+localStorage.getItem('sessionid')+"&type=accept&user="+request_arr[i]+"' class='bg-green-600 ml-1 rounded-md p-1 text-white hover:cursor-pointer'>Accept</a><a href='?pid="+pid+"&session="+localStorage.getItem('sessionid')+"&type=reject&user="+request_arr[i]+"    ' class='bg-red-600 ml-1 rounded-md p-1 text-white hover:cursor-pointer'>Reject</a></a></p>"
+                    document.getElementById('u_request').innerHTML+="<p class=' block bg-red-600 bg-opacity-20 mt-2 p-2 rounded-md'><a href='/project/pro?email="+request_arr[i]+"' class='hover:cursor-pointer text-left w-1/2 inline-block'>"+request_arr[i].slice(0, 15)+"..."+"</a><a class='text-right w-1/2 inline-block'><a href='?pid="+pid+"&session="+localStorage.getItem('sessionid')+"&type=1&user="+request_arr[i]+"' class='bg-green-600 ml-1 rounded-md p-1 text-white hover:cursor-pointer'>Accept</a><a href='?pid="+pid+"&session="+localStorage.getItem('sessionid')+"&type=0&user="+request_arr[i]+"    ' class='bg-red-600 ml-1 rounded-md p-1 text-white hover:cursor-pointer'>Reject</a></a></p>"
                 }
             }
         }
-
         document.getElementById('post_title').innerText=json_data[pid]['project_title']
         document.getElementById('post_initiated_by').innerText=json_data[pid]['initiated_by']
-        document.getElementById('post_description').innerText=json_data[pid]['project_description']
-        // document.getElementById('post_members').innerText= json_data[pid]['project_members']
-        // document.getElementById('post_req_skills').innerText=json_data[pid]['project_req_skills']
-        
-        
+        document.getElementById('post_description').innerText=json_data[pid]['project_description']        
     }, [comm])
     useEffect(()=>{
         if(header.get('type') && header.get('user') && header.get('session') && header.get('pid'))
@@ -68,6 +61,7 @@ export default function OpenProject() {
             fetch(url)
             .then((response) => response.json())
             .then((actualData) => {
+                console.log(actualData)
                 if(actualData.result =='success')
                 {
                     window.location='/'
@@ -101,7 +95,7 @@ export default function OpenProject() {
                 </span>
             </p>
             <p className='flex mt-5 justify-center items-center '>
-              <a className=' border hover:cursor-pointer hover:bg-slate-700 hover:text-white border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Project Data</a>
+              <a href={`openproject?pid=${pid}`} className=' border hover:cursor-pointer hover:bg-slate-700 hover:text-white border-slate-700 rounded-2xl p-2 pl-9 pr-9'>Project Data</a>
               {/* <a href='/' className=' border ml-5 hover:bg-red-700 hover:text-white border-red-700 rounded-2xl p-2 pl-9 pr-9' >Ignore</a> */}
             </p>
         </div>
@@ -112,7 +106,6 @@ export default function OpenProject() {
             </p>
             {
                 comm?<><p id='u_c' className='border overflow-auto max-h-96 p-5'>
-                  
             </p></>:
             <>
             <div id='u_request' className='border overflow-auto max-h-96 p-5'>

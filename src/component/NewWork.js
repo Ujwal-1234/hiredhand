@@ -4,10 +4,11 @@ export default function NewWork() {
   const project_title = useRef()
   const project_desc = useRef()
   const project_cat = useRef()
+  const req_skills = useRef()
 
   const create_project=()=>{
     if(project_title.current.value!=''||project_cat.current.value!='null'||project_desc.current.value!=''){
-      fetch(`http://localhost/hiredhand/server/project_creation.php?sessionid=`+localStorage.getItem('sessionid')+'&project_title='+project_title.current.value+'&project_desc='+project_desc.current.value+'&project_cat='+project_cat.current.value)
+      fetch(`http://localhost/hiredhand/server/project_creation.php?sessionid=`+localStorage.getItem('sessionid')+'&project_title='+project_title.current.value+'&project_desc='+project_desc.current.value+'&project_cat='+project_cat.current.value+'&req_skills='+req_skills.current.value)
            .then((response) => response.json())
            .then((actualData) => {
             if(actualData.result !='success' && actualData.verified==false)
@@ -21,8 +22,9 @@ export default function NewWork() {
            .catch((err) => {
             console.log(err.message);
            });
+    }else{
+      console.log('empty fields')
     }
-    console.log('empty fields')
   }
   return (
     <div className='fixed flex justify-center items-center top-0 bg-opacity-60 min-w-full bg-slate-900 max-w-full min-h-screen max-h-screen'>
@@ -40,7 +42,7 @@ export default function NewWork() {
                     <option value={'Teacher'}>Teacher</option>
                     <option value={'Expert'}>Expert</option>
                 </select>
-                <textarea type={"text"}className="block bg-red-500 border w-full bg-opacity-0 border-b-2 border-slate-900  mt-5 mb-5 p-2 rounded-2xl text-center" placeholder="Skills" />
+                <textarea ref={req_skills} type={"text"}className="block bg-red-500 border w-full bg-opacity-0 border-b-2 border-slate-900  mt-5 mb-5 p-2 rounded-2xl text-center" placeholder="Skills" />
                 <input type={"submit"} className='inlnie-block mt-5 mb-5 text-center hover:border-b-0 hover:border-t-2 border-red-500 hover:cursor-pointer active:text-white border rounded-3xl p-2 pl-5 pr-5 border-b-2' value={"cancel"} />
                 <input type={"button"} onClick={create_project} className='inline-block ml-5 mt-5 mb-5 text-center hover:border-b-0 hover:border-t-2 border-green-500 hover:cursor-pointer active:text-white border rounded-3xl p-2 pl-5 pr-5 border-b-2' value={"submit"}/>
             </form>
